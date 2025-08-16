@@ -39,7 +39,7 @@ void main() {
       expect(callCount, 1);
 
       // Wait for throttle interval to pass
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(callCount, 2);
     });
 
@@ -57,12 +57,12 @@ void main() {
       var callCount = 0;
 
       throttler.callAsync(() async {
-        await Future.delayed(const Duration(milliseconds: 10));
+        await Future<void>.delayed(const Duration(milliseconds: 10));
         callCount++;
       });
 
       expect(callCount, 0); // Async, so not executed yet
-      await Future.delayed(const Duration(milliseconds: 50));
+      await Future<void>.delayed(const Duration(milliseconds: 50));
       expect(callCount, 1);
     });
 
@@ -70,11 +70,11 @@ void main() {
       int? receivedParameter;
 
       throttler.callAsyncWithParameter<int>(42, (parameter) async {
-        await Future.delayed(const Duration(milliseconds: 10));
+        await Future<void>.delayed(const Duration(milliseconds: 10));
         receivedParameter = parameter;
       });
 
-      await Future.delayed(const Duration(milliseconds: 50));
+      await Future<void>.delayed(const Duration(milliseconds: 50));
       expect(receivedParameter, 42);
     });
 
@@ -95,7 +95,7 @@ void main() {
       throttler.cancel();
       expect(throttler.isActive, false);
 
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(callCount, 1); // Second call was cancelled
     });
 
@@ -110,7 +110,7 @@ void main() {
       throttler.call(() {});
       expect(throttler.isActive, true);
 
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(throttler.isActive, false);
     });
 
@@ -142,7 +142,7 @@ void main() {
       expect(timeUntilNext.inMilliseconds, greaterThan(50));
       expect(timeUntilNext.inMilliseconds, lessThanOrEqualTo(100));
 
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(throttler.timeUntilNextExecution, Duration.zero);
     });
 
@@ -158,7 +158,7 @@ void main() {
 
       expect(callCount, 1); // Only first call executed
 
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(callCount, 2); // Last call executed after interval
     });
 
@@ -192,11 +192,11 @@ void main() {
         longCallCount++;
       });
 
-      await Future.delayed(const Duration(milliseconds: 75));
+      await Future<void>.delayed(const Duration(milliseconds: 75));
       expect(shortCallCount, 2); // Short interval completed
       expect(longCallCount, 1); // Long interval still pending
 
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(longCallCount, 2); // Long interval completed
 
       shortThrottler.dispose();
@@ -217,7 +217,7 @@ void main() {
       throttler.dispose();
       expect(throttler.isActive, false);
 
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(callCount, 1); // Only the first immediate call
     });
   });

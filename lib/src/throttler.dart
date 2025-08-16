@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:flutter_throttle_debounce/src/api_throttler.dart'
+    show unawaited;
 import 'package:flutter_throttle_debounce/src/types.dart';
 
 /// A utility class for throttling function calls.
@@ -105,13 +107,13 @@ class Throttler {
 
     if (_lastExecution == null || now.difference(_lastExecution!) >= interval) {
       _lastExecution = now;
-      callback();
+      unawaited(callback());
     } else {
       _timer?.cancel();
       final remainingTime = interval - now.difference(_lastExecution!);
       _timer = Timer(remainingTime, () {
         _lastExecution = DateTime.now();
-        callback();
+        unawaited(callback());
       });
     }
   }
@@ -133,13 +135,13 @@ class Throttler {
 
     if (_lastExecution == null || now.difference(_lastExecution!) >= interval) {
       _lastExecution = now;
-      callback(parameter);
+      unawaited(callback(parameter));
     } else {
       _timer?.cancel();
       final remainingTime = interval - now.difference(_lastExecution!);
       _timer = Timer(remainingTime, () {
         _lastExecution = DateTime.now();
-        callback(parameter);
+        unawaited(callback(parameter));
       });
     }
   }

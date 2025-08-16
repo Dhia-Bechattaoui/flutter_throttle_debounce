@@ -72,7 +72,7 @@ void main() {
       expect(throttleCount, 1); // Throttler executes immediately
       expect(debounceCount, 0); // Debouncer waits
 
-      await Future.delayed(const Duration(milliseconds: 100));
+      await Future<void>.delayed(const Duration(milliseconds: 100));
 
       expect(debounceCount, 1); // Debouncer executed after delay
       expect(throttleCount, 1); // Throttler still at 1

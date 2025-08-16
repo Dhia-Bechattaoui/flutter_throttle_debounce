@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_throttle_debounce/flutter_throttle_debounce.dart';
 
@@ -61,7 +60,7 @@ void main() {
       expect(apiThrottler.queuedRequestsCount, 1);
 
       // Wait for rate limit to reset
-      await Future.delayed(const Duration(milliseconds: 250));
+      await Future<void>.delayed(const Duration(milliseconds: 250));
       await queuedFuture;
 
       expect(callCount, 4);
@@ -130,7 +129,7 @@ void main() {
       expect(timeUntilNext.inMilliseconds, greaterThan(100));
       expect(timeUntilNext.inMilliseconds, lessThanOrEqualTo(200));
 
-      await Future.delayed(const Duration(milliseconds: 250));
+      await Future<void>.delayed(const Duration(milliseconds: 250));
       expect(apiThrottler.timeUntilNextSlot, Duration.zero);
     });
 
@@ -162,7 +161,7 @@ void main() {
       apiThrottler.cancelQueuedRequests();
       expect(apiThrottler.queuedRequestsCount, 0);
 
-      await Future.delayed(const Duration(milliseconds: 250));
+      await Future<void>.delayed(const Duration(milliseconds: 250));
       expect(callCount, 3); // Only the initial 3 calls
     });
 
@@ -278,7 +277,7 @@ void main() {
       }
 
       // Wait for rate limit to reset and queue to process
-      await Future.delayed(const Duration(milliseconds: 300));
+      await Future<void>.delayed(const Duration(milliseconds: 300));
       await Future.wait(futures);
 
       expect(
@@ -315,7 +314,7 @@ void main() {
       apiThrottler.dispose();
       expect(apiThrottler.queuedRequestsCount, 0);
 
-      await Future.delayed(const Duration(milliseconds: 250));
+      await Future<void>.delayed(const Duration(milliseconds: 250));
       expect(callCount, 3); // Only the initial calls, queued one was cancelled
     });
   });

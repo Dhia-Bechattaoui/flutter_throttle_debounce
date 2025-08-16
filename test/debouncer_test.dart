@@ -21,7 +21,7 @@ void main() {
       });
 
       expect(callCount, 0);
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(callCount, 1);
     });
 
@@ -32,13 +32,13 @@ void main() {
         callCount++;
       });
 
-      await Future.delayed(const Duration(milliseconds: 50));
+      await Future<void>.delayed(const Duration(milliseconds: 50));
 
       debouncer.call(() {
         callCount++;
       });
 
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(callCount, 1);
     });
 
@@ -49,7 +49,7 @@ void main() {
         receivedParameter = parameter;
       });
 
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(receivedParameter, 'test');
     });
 
@@ -57,11 +57,11 @@ void main() {
       var callCount = 0;
 
       debouncer.callAsync(() async {
-        await Future.delayed(const Duration(milliseconds: 10));
+        await Future<void>.delayed(const Duration(milliseconds: 10));
         callCount++;
       });
 
-      await Future.delayed(const Duration(milliseconds: 200));
+      await Future<void>.delayed(const Duration(milliseconds: 200));
       expect(callCount, 1);
     });
 
@@ -69,11 +69,11 @@ void main() {
       int? receivedParameter;
 
       debouncer.callAsyncWithParameter<int>(42, (parameter) async {
-        await Future.delayed(const Duration(milliseconds: 10));
+        await Future<void>.delayed(const Duration(milliseconds: 10));
         receivedParameter = parameter;
       });
 
-      await Future.delayed(const Duration(milliseconds: 200));
+      await Future<void>.delayed(const Duration(milliseconds: 200));
       expect(receivedParameter, 42);
     });
 
@@ -88,7 +88,7 @@ void main() {
       debouncer.cancel();
       expect(debouncer.isActive, false);
 
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(callCount, 0);
     });
 
@@ -98,7 +98,7 @@ void main() {
       debouncer.call(() {});
       expect(debouncer.isActive, true);
 
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(debouncer.isActive, false);
     });
 
@@ -112,7 +112,7 @@ void main() {
       debouncer.dispose();
       expect(debouncer.isActive, false);
 
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(callCount, 0);
     });
 
@@ -123,10 +123,10 @@ void main() {
         debouncer.call(() {
           callCount++;
         });
-        await Future.delayed(const Duration(milliseconds: 10));
+        await Future<void>.delayed(const Duration(milliseconds: 10));
       }
 
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(callCount, 1);
     });
 
@@ -145,11 +145,11 @@ void main() {
         longCallCount++;
       });
 
-      await Future.delayed(const Duration(milliseconds: 100));
+      await Future<void>.delayed(const Duration(milliseconds: 100));
       expect(shortCallCount, 1);
       expect(longCallCount, 0);
 
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(longCallCount, 1);
 
       shortDebouncer.dispose();

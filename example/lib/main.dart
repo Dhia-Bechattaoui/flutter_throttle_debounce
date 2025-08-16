@@ -44,8 +44,8 @@ class _DemoHomePageState extends State<DemoHomePage> {
   final _scrollController = ScrollController();
 
   List<String> _searchResults = [];
-  List<String> _scrollEvents = [];
-  List<String> _apiCalls = [];
+  final List<String> _scrollEvents = [];
+  final List<String> _apiCalls = [];
   int _debounceCounter = 0;
   int _throttleCounter = 0;
 
@@ -116,9 +116,9 @@ class _DemoHomePageState extends State<DemoHomePage> {
     });
   }
 
-  void _makeApiCall() {
+  Future<void> _makeApiCall() async {
     final timestamp = DateTime.now().toIso8601String().substring(11, 19);
-    _apiThrottler.call('demo-api-call', () async {
+    await _apiThrottler.call('demo-api-call', () async {
       // Simulate API call delay
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
@@ -140,7 +140,7 @@ class _DemoHomePageState extends State<DemoHomePage> {
       ),
       body: ListView(
         controller: _scrollController,
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         children: [
           _buildSearchSection(),
           const SizedBox(height: 24),
@@ -161,7 +161,7 @@ class _DemoHomePageState extends State<DemoHomePage> {
   Widget _buildSearchSection() {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -201,7 +201,7 @@ class _DemoHomePageState extends State<DemoHomePage> {
   Widget _buildDebounceSection() {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -233,7 +233,7 @@ class _DemoHomePageState extends State<DemoHomePage> {
   Widget _buildThrottleSection() {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -265,7 +265,7 @@ class _DemoHomePageState extends State<DemoHomePage> {
   Widget _buildApiThrottleSection() {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -300,7 +300,7 @@ class _DemoHomePageState extends State<DemoHomePage> {
   Widget _buildScrollSection() {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

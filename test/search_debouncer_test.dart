@@ -23,7 +23,7 @@ void main() {
         receivedQuery = query;
       });
 
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(receivedQuery, 'flutter');
     });
 
@@ -34,7 +34,7 @@ void main() {
         receivedQuery = query;
       });
 
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(receivedQuery, isNull);
     });
 
@@ -45,7 +45,7 @@ void main() {
         receivedQuery = query;
       });
 
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(receivedQuery, 'flutter');
     });
 
@@ -62,7 +62,7 @@ void main() {
         receivedQuery = query;
       });
 
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(receivedQuery, '  flutter  ');
 
       nonTrimmingDebouncer.dispose();
@@ -77,7 +77,7 @@ void main() {
 
       searchDebouncer.search('a', (query) {});
 
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(clearCalled, true);
     });
 
@@ -85,11 +85,11 @@ void main() {
       String? receivedQuery;
 
       searchDebouncer.searchAsync('flutter', (query) async {
-        await Future.delayed(const Duration(milliseconds: 10));
+        await Future<void>.delayed(const Duration(milliseconds: 10));
         receivedQuery = query;
       });
 
-      await Future.delayed(const Duration(milliseconds: 200));
+      await Future<void>.delayed(const Duration(milliseconds: 200));
       expect(receivedQuery, 'flutter');
     });
 
@@ -97,13 +97,13 @@ void main() {
       var clearCalled = false;
 
       searchDebouncer.onClearResultsAsync = () async {
-        await Future.delayed(const Duration(milliseconds: 10));
+        await Future<void>.delayed(const Duration(milliseconds: 10));
         clearCalled = true;
       };
 
       searchDebouncer.searchAsync('a', (query) async {});
 
-      await Future.delayed(const Duration(milliseconds: 200));
+      await Future<void>.delayed(const Duration(milliseconds: 200));
       expect(clearCalled, true);
     });
 
@@ -133,7 +133,7 @@ void main() {
       searchDebouncer.cancel();
       expect(searchDebouncer.isActive, false);
 
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(receivedQuery, isNull);
     });
 
@@ -143,7 +143,7 @@ void main() {
       searchDebouncer.search('flutter', (query) {});
       expect(searchDebouncer.isActive, true);
 
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(searchDebouncer.isActive, false);
     });
 
@@ -174,7 +174,7 @@ void main() {
           receivedQuery = query;
         });
 
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(receivedQuery, 'flutter');
       expect(searchDebouncer.lastQuery, 'flutter');
     });
@@ -191,14 +191,14 @@ void main() {
         receivedQuery = query;
       });
 
-      await Future.delayed(const Duration(milliseconds: 100));
+      await Future<void>.delayed(const Duration(milliseconds: 100));
       expect(receivedQuery, isNull); // Too short
 
       strictDebouncer.search('flutter', (query) {
         receivedQuery = query;
       });
 
-      await Future.delayed(const Duration(milliseconds: 100));
+      await Future<void>.delayed(const Duration(milliseconds: 100));
       expect(receivedQuery, 'flutter'); // Long enough
 
       strictDebouncer.dispose();
@@ -220,7 +220,7 @@ void main() {
         callCount++;
       });
 
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(receivedQuery, 'second');
       expect(callCount, 1); // Only the latest search should execute
     });
@@ -236,7 +236,7 @@ void main() {
       expect(searchDebouncer.isActive, false);
       expect(searchDebouncer.lastQuery, isNull);
 
-      await Future.delayed(const Duration(milliseconds: 150));
+      await Future<void>.delayed(const Duration(milliseconds: 150));
       expect(receivedQuery, isNull);
     });
   });
